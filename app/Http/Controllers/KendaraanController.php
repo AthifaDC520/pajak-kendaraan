@@ -14,19 +14,52 @@ class KendaraanController extends Controller
     }
 
     public function cariForm()
-{
-    return view('kendaraan.cari');
-}
-    public function cari(Request $request)
     {
-        $kendaraan = Kendaraan::where('nomor_plat', $request->nomor_plat)->first();
+        return view('kendaraan.cari');
+    }
+    
+    public function cari(Request $request)
+{
+    $query = Kendaraan::query();
 
-        if (!$kendaraan) {
-        return back()->with('not_found', true);
+    // 🔎 Cari plat (partial)
+    if ($request->filled('nomor_plat')) {
+        $plat = strtoupper($request->nomor_plat);
+        $query->where('nomor_plat', 'LIKE', "%$plat%");
     }
 
-    return view('kendaraan.cari', compact('kendaraan'));
+    // 🏢 Filter DINAS / OPD
+    if ($request->filled('dinas_opd')) {
+        $query->where('dinas_opd', $request->dinas_opd);
     }
+
+    // 📅 Filter Tahun Kendaraan
+    if ($request->filled('tahun_kendaraan')) {
+        $query->where('tahun_kendaraan', $request->tahun_kendaraan);
+    }
+
+    // 💰 Filter Status Pajak
+    if ($request->filled('status_pajak')) {
+        $query->where('status_pajak', $request->status_pajak);
+    }
+
+    // 🔃 Sorting
+    if ($request->filled('sort')) {
+        match ($request->sort) {
+            'tahun_asc'  => $query->orderBy('tahun_kendaraan', 'asc'),
+            'tahun_desc' => $query->orderBy('tahun_kendaraan', 'desc'),
+            'plat_asc'   => $query->orderBy('nomor_plat', 'asc'),
+            default      => $query->latest(),
+        };
+    } else {
+        $query->latest();
+    }
+
+    $kendaraans = $query->get();
+
+    return view('kendaraan.cari', compact('kendaraans'));
+}
+
 
     public function create()
     {
@@ -44,6 +77,7 @@ class KendaraanController extends Controller
     ],
     [
         'nama_pemilik' => 'required',
+        'dinas_opd' => 'required',
         'jenis_kendaraan' => 'required',
         'merk' => 'required',
         'tahun_kendaraan' => 'required|digits:4',
@@ -53,6 +87,7 @@ class KendaraanController extends Controller
     Kendaraan::create([
         'nomor_plat' => $request->nomor_plat,
         'nama_pemilik' => $request->nama_pemilik,
+        'dinas_opd' => $request->dinas_opd,
         'jenis_kendaraan' => $request->jenis_kendaraan,
         'merk' => $request->merk,
         'tahun_kendaraan' => $request->tahun_kendaraan,
@@ -85,6 +120,7 @@ class KendaraanController extends Controller
         $request->validate([
         'nomor_plat' => 'required|unique:kendaraans,nomor_plat,' . $id,
         'nama_pemilik' => 'required',
+        'dinas_opd' => 'required',
         'jenis_kendaraan' => 'required',
         'merk' => 'required',
         'tahun_kendaraan' => 'required|digits:4',
@@ -96,6 +132,7 @@ class KendaraanController extends Controller
     $kendaraan->update([
         'nomor_plat' => $request->nomor_plat,
         'nama_pemilik' => $request->nama_pemilik,
+        'dinas_opd' => $request->dinas_opd,
         'jenis_kendaraan' => $request->jenis_kendaraan,
         'merk' => $request->merk,
         'tahun_kendaraan' => $request->tahun_kendaraan,

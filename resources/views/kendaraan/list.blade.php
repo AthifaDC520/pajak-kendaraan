@@ -9,12 +9,36 @@
 
 <div class="container py-5">
 
-    <div class="d-flex justify-content-between mb-3">
+    <!-- <div class="d-flex justify-content-between mb-3">
         <h4><i class="bi bi-car-front"></i> Data Kendaraan</h4>
-        <a href="/kendaraan/tambah" class="btn btn-primary">
-            <i class="bi bi-plus"></i> Tambah
+        @if(auth()->check())
+            <a href="/kendaraan/tambah" class="btn btn-primary">Tambah Kendaraan</a>
+        @else
+            <a href="/login" class="btn btn-outline-primary">Login untuk Tambah Data</a>
+        @endif
+
+    </div> -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h4 class="mb-0">
+        <i class="bi bi-car-front"></i> Data Kendaraan
+    </h4>
+
+    <div class="d-flex gap-2">
+        @if(auth()->check())
+            <a href="/kendaraan/tambah" class="btn btn-primary">
+                Tambah Kendaraan
+            </a>
+        @endif
+
+        <a href="{{ url('/') }}" class="btn btn-outline-secondary">
+            ← Kembali ke Beranda
         </a>
     </div>
+
+</div>
+
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -27,7 +51,8 @@
                     <tr>
                         <th>No</th>
                         <th>Plat</th>
-                        <th>Pemilik</th>
+                        <th>Pengguna</th>
+                        <th>DINAS / OPD</th>
                         <th>Jenis</th>
                         <th>Merk</th>
                         <th>Tahun Kendaraan</th>
@@ -42,6 +67,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td><strong>{{ $k->nomor_plat }}</strong></td>
                         <td>{{ $k->nama_pemilik }}</td>
+                        <td>{{ $k->dinas_opd }}</td>
                         <td>{{ $k->jenis_kendaraan }}</td>
                         <td>{{ $k->merk }}</td>
                         <td>{{ $k->tahun_kendaraan }}</td>
@@ -83,11 +109,11 @@
         </div>
     </div>
 
-    <div class="mt-3">
-        <a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary">
+    <!-- <div class="mt-3">
+        <a href="{{ url('/') }}" class="btn btn-outline-secondary">
             ← Kembali ke Beranda
         </a>
-    </div>
+    </div> -->
 
 
 </div>

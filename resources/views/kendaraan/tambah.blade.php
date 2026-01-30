@@ -9,9 +9,21 @@
 
     <style>
         body {
-            background: #f4f6f9;
+            background: rgba(255,255,255,0.9);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
         }
+
+        /* Biar konten tetap kebaca */
+        /* .container {
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 24px;
+        } */
     </style>
+
 </head>
 <body>
 
@@ -63,15 +75,25 @@
                         </div>
                     </div>
 
-                    <!-- Nama Pemilik -->
+                    <!-- Nama Pengguna -->
                     <div class="col-md-6">
-                        <label class="form-label">Nama Pemilik</label>
+                        <label class="form-label">Nama Pengguna</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="bi bi-person"></i>
                             </span>
                             <input type="text" name="nama_pemilik" class="form-control" required>
                         </div>
+                    </div>
+
+                    <!-- DINAS / OPD -->
+                    <div class="col-md-6">
+                        <label class="form-label">DINAS / OPD</label>
+                        <select name="dinas_opd" class="form-select" required>
+                            <option value="">-- Pilih --</option>
+                            <option>Opsi1</option>
+                            <option>Opsi2</option>
+                        </select>
                     </div>
 
                     <!-- Jenis Kendaraan -->
@@ -117,7 +139,7 @@
     </div>
 
     <div class="mt-3">
-        <a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary">
+        <a href="{{ url('/') }}" class="btn btn-outline-secondary">
             ← Kembali ke Beranda
         </a>
     </div>

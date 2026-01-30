@@ -14,6 +14,7 @@ class Kendaraan extends Model
         'nomor_plat',
         'nama_pemilik',
         'alamat',
+        'dinas_opd',
         'jenis_kendaraan',
         'merk',
         'tahun_kendaraan',

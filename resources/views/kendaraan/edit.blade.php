@@ -22,11 +22,17 @@
                 </div>
 
                 <div class="mb-3">
-                    <label>Nama Pemilik</label>
+                    <label>Nama Pengguna</label>
                     <input type="text" name="nama_pemilik" class="form-control"
                            value="{{ $kendaraan->nama_pemilik }}">
                 </div>
-
+                
+                <div class="mb-3">
+                    <label>DINAS / OPD</label>
+                    <input type="text" name="dinas_opd" class="form-control"
+                           value="{{ $kendaraan->dinas_opd }}">
+                </div>
+                
                 <div class="mb-3">
                     <label>Jenis Kendaraan</label>
                     <input type="text" name="jenis_kendaraan" class="form-control"

@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('nomor_plat')->unique();
             $table->string('nama_pemilik');
+            $table->string('dinas_opd');
             $table->text('alamat')->nullable();
             $table->string('jenis_kendaraan');
             $table->string('merk')->nullable();
+            $table->string('tahun_kendaraan');
             $table->date('tanggal_jatuh_tempo');
             $table->string('status_pajak');
             $table->timestamps();

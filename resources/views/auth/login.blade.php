@@ -10,8 +10,24 @@
 
     <style>
         body {
-            background: linear-gradient(120deg, #1e3c72, #2a5298);
+            background-image: url('https://cdn.visiteliti.com/article/2023-02/24/1q2zGJ1I28HBt48goihv_1677226351.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
         }
+
+        /* overlay gelap biar teks kebaca */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: -1;
+        }
+    </style>
+
+    <style>
         .login-card {
             border-radius: 14px;
             overflow: hidden;
@@ -36,17 +52,20 @@
 
             <!-- KIRI (VISUAL) -->
             <div class="col-md-6 d-none d-md-flex flex-column justify-content-center align-items-center login-left p-5">
-                <i class="bi bi-car-front-fill mb-3"></i>
-                <h3 class="fw-bold text-center">Sistem Informasi</h3>
+                <img src="{{ asset('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Seal_of_Semarang_Regency.svg/960px-Seal_of_Semarang_Regency.svg.png') }}"
+                    class="mb-3"
+                    style="height:80px;">
+
+                <!-- <i class="bi bi-car-front-fill mb-3"></i> -->
+                <h3 class="fw-bold text-center">Sistem Informasi Monitoring</h3>
                 <p class="text-center opacity-75">
-                    Pajak Kendaraan Bermotor<br>
-                    BKUD KAB. SEMARANG
+                    Pajak Kendaraan Bermotor                
                 </p>
             </div>
 
             <!-- KANAN (FORM) -->
             <div class="col-md-6 login-right p-5">
-                <h4 class="fw-bold mb-2">Login Petugas</h4>
+                <h4 class="fw-bold mb-2">Login Pegawai</h4>
                 <p class="text-muted mb-4" style="font-size: 14px;">
                     Silakan masuk menggunakan akun resmi
                 </p>
@@ -61,21 +80,15 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label class="form-label">Email</label>
+                        <label class="form-label">Nama</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="bi bi-envelope"></i>
-                            </span>
-                            <input type="email" name="email" class="form-control" placeholder="admin@local.com" required>
+                            <input type="text" name="name" class="form-control" placeholder="admin" required>
                         </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Password</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="bi bi-lock"></i>
-                            </span>
                             <input type="password" name="password" class="form-control" placeholder="••••••••" required>
                         </div>
                     </div>
